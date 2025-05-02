@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "pm-chatbot-api",
+		"name": "Project Management Chatbot API",
+		"description": "API collection for the Project Management Chatbot with integration capabilities",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Get Access Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"client_id\": \"your-client-id\",\n    \"client_secret\": \"your-client-secret\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/auth",
+							"host": ["{{base_url}}"],
+							"path": ["api", "auth"]
+						},
+						"description": "Get JWT access token for API authentication"
+					}
+				}
+			]
+		},
+		{
+			"name": "Chatbot",
+			"item": [
+				{
+					"name": "Direct Question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"question\": \"What are the best practices for project management?\",\n    \"project_type\": \"pm\",\n    \"chat_history\": []\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/direct-question",
+							"host": ["{{base_url}}"],
+							"path": ["api", "direct-question"]
+						},
+						"description": "Ask a direct question to the chatbot"
+					}
+				},
+				{
+					"name": "Guided Questionnaire",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"responses\": {\n        \"project_name\": \"My Project\",\n        \"project_type\": \"Software Development\",\n        \"team_size\": \"5\",\n        \"timeline\": \"6 months\"\n    },\n    \"project_type\": \"pm\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/guided-questionnaire",
+							"host": ["{{base_url}}"],
+							"path": ["api", "guided-questionnaire"]
+						},
+						"description": "Submit responses to the guided questionnaire"
+					}
+				}
+			]
+		},
+		{
+			"name": "Integration",
+			"item": [
+				{
+					"name": "Integrate Project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"project_id\": \"123\",\n    \"project_data\": {\n        \"name\": \"Example Project\",\n        \"description\": \"Project description\",\n        \"status\": \"active\",\n        \"team\": [\"member1\", \"member2\"],\n        \"timeline\": {\n            \"start_date\": \"2024-01-01\",\n            \"end_date\": \"2024-06-30\"\n        }\n    },\n    \"integration_type\": \"project_management\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/integrate/project",
+							"host": ["{{base_url}}"],
+							"path": ["api", "integrate", "project"]
+						},
+						"description": "Integrate a project with external systems"
+					}
+				},
+				{
+					"name": "Get Integration Status",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/integrate/status/123",
+							"host": ["{{base_url}}"],
+							"path": ["api", "integrate", "status", "123"]
+						},
+						"description": "Check the status of a project integration"
+					}
+				},
+				{
+					"name": "Sync Projects",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{access_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/integrate/sync",
+							"host": ["{{base_url}}"],
+							"path": ["api", "integrate", "sync"]
+						},
+						"description": "Synchronize project data with external systems"
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "access_token",
+			"value": "your-access-token-here",
+			"type": "string"
+		}
+	]
+} 
