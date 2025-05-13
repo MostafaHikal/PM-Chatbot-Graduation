@@ -7,33 +7,6 @@
 	},
 	"item": [
 		{
-			"name": "Authentication",
-			"item": [
-				{
-					"name": "Get Access Token",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/json"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"client_id\": \"your-client-id\",\n    \"client_secret\": \"your-client-secret\"\n}"
-						},
-						"url": {
-							"raw": "{{base_url}}/api/auth",
-							"host": ["{{base_url}}"],
-							"path": ["api", "auth"]
-						},
-						"description": "Get JWT access token for API authentication"
-					}
-				}
-			]
-		},
-		{
 			"name": "Chatbot",
 			"item": [
 				{
@@ -44,10 +17,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{access_token}}"
 							}
 						],
 						"body": {
@@ -70,10 +39,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{access_token}}"
 							}
 						],
 						"body": {
@@ -101,10 +66,6 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
-							},
-							{
-								"key": "Authorization",
-								"value": "Bearer {{access_token}}"
 							}
 						],
 						"body": {
@@ -123,12 +84,7 @@
 					"name": "Get Integration Status",
 					"request": {
 						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{access_token}}"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/integrate/status/123",
 							"host": ["{{base_url}}"],
@@ -141,12 +97,7 @@
 					"name": "Sync Projects",
 					"request": {
 						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{access_token}}"
-							}
-						],
+						"header": [],
 						"url": {
 							"raw": "{{base_url}}/api/integrate/sync",
 							"host": ["{{base_url}}"],
@@ -183,11 +134,6 @@
 			"key": "base_url",
 			"value": "http://localhost:8000",
 			"type": "string"
-		},
-		{
-			"key": "access_token",
-			"value": "your-access-token-here",
-			"type": "string"
 		}
 	]
-} 
+}

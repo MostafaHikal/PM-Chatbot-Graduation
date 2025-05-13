@@ -1,3 +1,4 @@
+from email import message
 import os
 import google.generativeai as genai
 from dotenv import load_dotenv
@@ -9,6 +10,7 @@ from prompts import (
 
 # Load environment variables
 load_dotenv()
+messages = []
 
 # Configure Gemini API
 def setup_openai():
@@ -64,7 +66,7 @@ def get_openai_response(prompt, system_prompt=SYSTEM_PROMPT, chat_history=None):
         ]
         
         model = genai.GenerativeModel(
-            model_name="gemini-1.5-pro",
+            model_name="gemini-2.0-flash",
             generation_config=generation_config,
             safety_settings=safety_settings
         )
@@ -86,29 +88,13 @@ def get_openai_response(prompt, system_prompt=SYSTEM_PROMPT, chat_history=None):
         
         # Generate the response with the full context
         response = model.generate_content(full_prompt)
+
+        # Add the current user message
+        messages.append({"role": "user", "content": prompt})
         return response.text
     
     except Exception as e:
         st.error(f"Error getting response from Gemini: {str(e)}")
-        return "عذراً، حدث خطأ في الاتصال بنموذج الذكاء الاصطناعي. يرجى المحاولة مرة أخرى."
-
-
-        # Add the current user message
-        messages.append({"role": "user", "content": prompt})
-        
-        # Call the OpenAI API
-        response = openai.chat.completions.create(
-            model="gpt-4-turbo",  # Use appropriate model
-            messages=messages,
-            temperature=0.7,
-            max_tokens=2048,
-            top_p=0.95,
-        )
-        
-        return response.choices[0].message.content
-    
-    except Exception as e:
-        st.error(f"Error getting response from OpenAI: {str(e)}")
         return "عذراً، حدث خطأ في الاتصال بنموذج الذكاء الاصطناعي. يرجى المحاولة مرة أخرى."
 
 
@@ -185,3 +171,4 @@ def process_direct_question(question, chat_history=None, project_type="pm"):
     prompt += f"\n\nسؤال المستخدم: {question}"
     
     return get_openai_response(prompt) 
+
